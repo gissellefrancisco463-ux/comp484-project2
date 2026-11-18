@@ -8,6 +8,11 @@ $(function() { // Makes sure that your function is called once all the DOM eleme
     $('.play-button').click(clickedPlayButton);
     $('.exercise-button').click(clickedExerciseButton);
     $('.nap-button').click(clickedNapButton);
+    $('#pet-select').on('change', function (){
+      pet_info = pets[Number(this.value)];
+      $('#pet-comment').remove();
+      checkAndUpdatePetInfoInHtml();
+    })
   
 
   
@@ -15,7 +20,20 @@ $(function() { // Makes sure that your function is called once all the DOM eleme
   })
   
     // Add a variable "pet_info" equal to a object with the name (string), weight (number), and happiness (number) of your pet
-    var pet_info = {name:"Michi", weight:8, happiness:12};
+   function Pet(name, weight, happiness, image){
+    this.name = name;
+    this.weight = weight;
+    this.happiness = happiness;
+    this.image = image; 
+   }
+
+   //new pet creates a separate object so each pet has its own info for weight and happiness
+   var pets = [
+    new Pet("Michi", 9, 12, "images/pixelcat.png"),
+    new Pet("Mochi", 6, 10, "images/pixelcat2.png")
+   ]
+
+    var pet_info = pets[0];
   
     function clickedTreatButton() {
       // Increase pet happiness
@@ -81,5 +99,6 @@ $(function() { // Makes sure that your function is called once all the DOM eleme
       $('.name').text(pet_info['name']);
       $('.weight').text(pet_info['weight']);
       $('.happiness').text(pet_info['happiness']);
+      $('.pet-image').attr('src', pet_info.image);
     }
   
